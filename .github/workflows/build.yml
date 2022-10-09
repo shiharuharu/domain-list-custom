@@ -19,7 +19,7 @@ jobs:
 
       - name: Compare latest tags and set variables
         run: |
-          upstreamLatestTag=$(curl -sSL --connect-timeout 5 -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/v2fly/domain-list-community/releases/latest | grep "tag_name" | cut -d\" -f4)
+          upstreamLatestTag=$(curl -sSL --connect-timeout 5 -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/shiharuharu/domain-list-community/releases/latest | grep "tag_name" | cut -d\" -f4)
           thisLatestTag=$(curl -sSL --connect-timeout 5 -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/${{ github.repository }}/releases/latest | grep "tag_name" | cut -d\" -f4)
           if [[ $upstreamLatestTag != $thisLatestTag ]]; then
             echo "NeedToSync=true" >> $GITHUB_ENV
@@ -32,11 +32,11 @@ jobs:
         uses: actions/checkout@v3
         if: ${{ env.NeedToSync }}
 
-      - name: Checkout v2fly/domain-list-community
+      - name: Checkout shiharuharu/domain-list-community
         if: ${{ env.NeedToSync }}
         uses: actions/checkout@v3
         with:
-          repository: v2fly/domain-list-community
+          repository: shiharuharu/domain-list-community
           path: domain-list-community
 
       - name: Append attribute rules
